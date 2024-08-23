@@ -10,6 +10,8 @@
 status](https://circleci.com/gh/geeks-projects/malariaRA.svg?style=svg)](https://circleci.com/gh/geeks-projects/malariaRA)
 [![Codecov test
 coverage](https://codecov.io/gh/geeks-projects/malariaRA/branch/master/graph/badge.svg)](https://app.codecov.io/gh/geeks-projects/malariaRA?branch=master)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The goal of the Malaria Readiness Assessment

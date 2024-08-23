@@ -10,7 +10,9 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
-      h1("malariaRA")
+      mod_dashboard_heading_ui("dashboard_heading_1")
+
+
     )
   )
 }
@@ -34,6 +36,7 @@ golem_add_external_resources <- function() {
     bundle_resources(
       path = app_sys("app/www"),
       app_title = "malariaRA"
+
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()

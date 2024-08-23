@@ -6,4 +6,5 @@
 #' @noRd
 app_server <- function(input, output, session) {
   # Your application server logic
+  mod_dashboard_heading_server("dashboard_heading_1")
 }
