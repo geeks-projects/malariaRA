@@ -1,3 +1,6 @@
+# Sass code compilation
+sass::sass(input = sass::sass_file("inst/app/www/malariaRA.sass"), output = "inst/app/www/malariaRA.css", cache = NULL)
+
 # Set options here
 options(golem.app.prod = FALSE) # TRUE = production mode, FALSE = development mode
 

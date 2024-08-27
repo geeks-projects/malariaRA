@@ -15,8 +15,8 @@ mod_dashboard_heading_ui <- function(id){
     div(class = "mainHeader",
         img(class = "title-left-img", src = "www/Coat_of_arms_of_Uganda.svg",  height = 40, width = 80, alt="Uganda coat of arms", role="img"),
         div(class = "title-text-div",
-            h6(class= "title-text", "Malaria Readiness Assessment"),
-            h5(class= "title-text", "Dashboard")),
+            h6(class= "title-text", "Malaria Readiness Assessment Dashboard")),
+          #  h5(class= "title-text", "Dashboard")),
         img(class = "title-right-img", src = "www/unepi-logo.png",  height = 40, width = 80, alt="UNEPI Logo", role="img", align="center")
     )
 

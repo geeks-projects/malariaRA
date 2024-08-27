@@ -1,0 +1,78 @@
+/* Create variables*/
+$contianer_background_color: #ffffff;
+$page_background_color: #ecede6;
+$text_color: #191919;
+$card_border_radius: 5px;
+/*Page */
+
+body
+  background-color: $page_background_color;
+  color: $text_color
+  font: 12px/20px "Roboto";
+  letter-spacing: normal;
+  height: auto;
+  margin: 0;
+
+/* Use variables*/
+.mainHeader
+    background-color: $contianer_background_color;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    padding: 5px 0;
+    top: 0;
+    width: 100%;
+
+.title-text-div
+   width: 500px;
+
+.title-text
+   color: #000000;
+   display: block;
+   margin: 4px;
+   font: 185 19px / 20px "Ubuntu", sans-serif;
+   text-align: center;
+
+
+%title-img
+  max-width: 100%;
+  margin: 4px;
+
+.title-left-img
+  @extend %title-img;
+  max-height: 50px;
+  text-align: center;
+
+.title-right-img
+  @extend %title-img;
+  max-height: 37px;
+
+.shiny-input-container:not(.shiny-input-container-inline)
+    width: -webkit-fill-available;
+
+
+
+%cardextension
+  background-color: $contianer_background_color;
+  position: relative;
+  float: left;
+  border-radius: $card_border_radius;
+  margin: 7px 5px 5px 5px;
+  width: 98.5%;
+  border: 0.5px solid $text_color;
+
+.singlevaluebox
+  @extend %cardextension;
+  height: 100px;
+
+.cardrow2
+  @extend %cardextension;
+  height: 450px;
+
+.cardrow3
+  @extend %cardextension;
+  height: 550px;

@@ -33,7 +33,7 @@ golem::add_utils("helpers", with_test = TRUE)
 golem::add_js_file("script")
 golem::add_js_handler("handlers")
 golem::add_css_file("ugandan-dashboard")
-golem::add_sass_file("custom")
+golem::add_sass_file("malariaRA")
 
 ## Add internal datasets ----
 ## If you have data in your package

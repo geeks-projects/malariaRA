@@ -1,0 +1,76 @@
+/* Create variables*/
+/*Page */
+body {
+  background-color: #ecede6;
+  color: #191919;
+  font: 12px/20px "Roboto";
+  letter-spacing: normal;
+  height: auto;
+  margin: 0;
+}
+
+/* Use variables*/
+.mainHeader {
+  background-color: #ffffff;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  padding: 5px 0;
+  top: 0;
+  width: 100%;
+}
+
+.title-text-div {
+  width: 500px;
+}
+
+.title-text {
+  color: #000000;
+  display: block;
+  margin: 4px;
+  font: 185 19px / 20px "Ubuntu", sans-serif;
+  text-align: center;
+}
+
+.title-right-img, .title-left-img {
+  max-width: 100%;
+  margin: 4px;
+}
+
+.title-left-img {
+  max-height: 50px;
+  text-align: center;
+}
+
+.title-right-img {
+  max-height: 37px;
+}
+
+.shiny-input-container:not(.shiny-input-container-inline) {
+  width: -webkit-fill-available;
+}
+
+.cardrow3, .cardrow2, .singlevaluebox {
+  background-color: #ffffff;
+  position: relative;
+  float: left;
+  border-radius: 5px;
+  margin: 7px 5px 5px 5px;
+  width: 98.5%;
+}
+
+.singlevaluebox {
+  height: 100px;
+}
+
+.cardrow2 {
+  height: 450px;
+}
+
+.cardrow3 {
+  height: 550px;
+}
