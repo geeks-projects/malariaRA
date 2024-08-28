@@ -3,12 +3,14 @@ $contianer_background_color: #ffffff;
 $page_background_color: #ecede6;
 $text_color: #191919;
 $card_border_radius: 5px;
+$card_border_color: #a0aa674d;
+$font_card_header: 185 11px / 20px "Ubuntu", sans-serif;
 /*Page */
 
 body
   background-color: $page_background_color;
   color: $text_color
-  font: 12px/20px "Roboto";
+  font: $font_card_header;
   letter-spacing: normal;
   height: auto;
   margin: 0;
@@ -25,7 +27,9 @@ body
     z-index: 10;
     padding: 5px 0;
     top: 0;
-    width: 100%;
+    width: 99%;
+    margin: 1px 21px 3px 4px;
+
 
 .title-text-div
    width: 500px;
@@ -51,6 +55,23 @@ body
   @extend %title-img;
   max-height: 37px;
 
+ul
+ li
+  width: 590px;
+  padding: 0px;
+  margin: 0px;
+  border-right: 0.2px solid $card_border_color;
+  border-left: 0.2px solid $card_border_color;
+
+
+.html-fill-container
+  &.html-fill-item
+    &.tab-content
+      background-color: #ecede6;
+
+
+
+
 .shiny-input-container:not(.shiny-input-container-inline)
     width: -webkit-fill-available;
 
@@ -63,7 +84,7 @@ body
   border-radius: $card_border_radius;
   margin: 7px 5px 5px 5px;
   width: 98.5%;
-  border: 0.5px solid $text_color;
+  border: 0.5px solid $card_border_color;
 
 .singlevaluebox
   @extend %cardextension;
@@ -75,4 +96,10 @@ body
 
 .cardrow3
   @extend %cardextension;
-  height: 550px;
+  height: 600px;
+
+.card-header
+    border-bottom: 0.2px solid $card_border_color;
+    border-top: 0.2px solid $card_border_color;
+    background-color: $contianer_background_color;
+

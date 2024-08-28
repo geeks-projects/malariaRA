@@ -83,7 +83,7 @@ mod_national_tab_server <- function(id){
         mutate(Pillar = str_to_sentence(Pillar) |>
                  str_wrap(width = 15)) |>
         ggplot() +
-        geom_col(aes(x = Pillar, y = `9-7m`)) +
+        geom_col(aes(x = Pillar, y = `9-7m`), fill = "#00b4d8") +
         theme_classic() +
         #scale_x_reverse()+
         coord_flip()

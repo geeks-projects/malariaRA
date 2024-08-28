@@ -3,7 +3,7 @@
 body {
   background-color: #ecede6;
   color: #191919;
-  font: 12px/20px "Roboto";
+  font: 185 11px/20px "Ubuntu", sans-serif;
   letter-spacing: normal;
   height: auto;
   margin: 0;
@@ -21,7 +21,8 @@ body {
   z-index: 10;
   padding: 5px 0;
   top: 0;
-  width: 100%;
+  width: 99%;
+  margin: 1px 21px 3px 4px;
 }
 
 .title-text-div {
@@ -50,6 +51,18 @@ body {
   max-height: 37px;
 }
 
+ul li {
+  width: 590px;
+  padding: 0px;
+  margin: 0px;
+  border-right: 0.2px solid #a0aa674d;
+  border-left: 0.2px solid #a0aa674d;
+}
+
+.html-fill-container.html-fill-item.tab-content {
+  background-color: #ecede6;
+}
+
 .shiny-input-container:not(.shiny-input-container-inline) {
   width: -webkit-fill-available;
 }
@@ -61,6 +74,7 @@ body {
   border-radius: 5px;
   margin: 7px 5px 5px 5px;
   width: 98.5%;
+  border: 0.5px solid #a0aa674d;
 }
 
 .singlevaluebox {
@@ -72,5 +86,11 @@ body {
 }
 
 .cardrow3 {
-  height: 550px;
+  height: 600px;
+}
+
+.card-header {
+  border-bottom: 0.2px solid #a0aa674d;
+  border-top: 0.2px solid #a0aa674d;
+  background-color: #ffffff;
 }

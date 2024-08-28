@@ -10,6 +10,12 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
+      theme =  bslib::bs_theme(version = 5,
+                               # heading_font = bslib::font_google("Ubuntu"),
+                               # base_font = bslib::font_google("Roboto")
+                               ),
+    #  tags$style('ul li:nth-child(1) {width: 600px;}
+    #                ul li:nth-child(2) {width: 600px;}'),
       mod_dashboard_heading_ui("dashboard_heading_1"),
       navset_card_underline(
         nav_panel("National", mod_national_tab_ui("national_tab_1")),
