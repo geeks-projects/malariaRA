@@ -2,7 +2,7 @@
 #'
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
-#' @import shiny bslib bsicons ggplot2 dplyr stringr forcats
+#' @import shiny bslib bsicons ggplot2 dplyr stringr forcats reactable
 #' @noRd
 app_ui <- function(request) {
   tagList(
@@ -20,7 +20,7 @@ app_ui <- function(request) {
       navset_card_underline(
         nav_panel("National", mod_national_tab_ui("national_tab_1")),
 
-        nav_panel("District", tableOutput("summary")),
+        nav_panel("District", mod_district_tab_ui("district_tab_1")),
 
       )
     )

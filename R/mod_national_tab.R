@@ -12,62 +12,46 @@ mod_national_tab_ui <- function(id){
   tagList(
 
     layout_columns(
-      value_box(class = "singlevaluebox",
-        title = "Over all preparedness", value = "60%", theme = value_box_theme(
-          bg = "#FFFFFF",
-          fg = "#191919"
-        ), showcase = bsicons::bs_icon("clipboard-data"),
-        showcase_layout = "left center", full_screen = FALSE, fill = TRUE,
-        height = NULL
-      ),
-      value_box(class = "singlevaluebox",
-        title = "Number of districts ready", value = "60",
-        theme = value_box_theme(bg = "#FFFFFF", fg = "#191919"),
-        showcase = bsicons::bs_icon("hospital"), showcase_layout = "left center",
-        full_screen = FALSE, fill = TRUE, height = NULL
-      ),
-      value_box(class = "singlevaluebox",
-        title = "Days left to the introduction", value = "120",
-        theme = value_box_theme(bg = "#FFFFFF", fg = "#191919"),
-        showcase = bsicons::bs_icon("calendar-event"), showcase_layout = "left center",
-        full_screen = FALSE, fill = TRUE, height = NULL
-      )
-    ),
+      mod_valuebox_ui(id = "valuebox_1",  title = "Over all preparedness" ,
+                      icon = "clipboard-data",  value = "60%"),
+
+      mod_valuebox_ui(id = "valuebox_2",   title = "Number of districts ready",
+                      icon = "hospital",  value = "70"),
+
+      mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
+                      icon = "calendar-event",  value = "120")),
 
     ## Row 2
 
     layout_column_wrap(
       width = 1/2,
-      height = 350,
       full_screen = F,
       card(class = "cardrow2",
         full_screen = TRUE, card_header("Overall Score (%) for Current timeline :"),
            plotOutput(ns("plot"))),
+
       card(class = "cardrow2",
         full_screen = TRUE, card_header("Score for over the timeline"),
-           tableOutput(ns("table")))
+           reactableOutput(ns("table")))
         #shiny::icon("circle-info"),
     ),
 
     ## Row 3
 
     card(class = "cardrow3",
-      height = 300,
       full_screen = TRUE,
       card_header("More details questions"),
-      layout_sidebar(
-        fillable = TRUE,
-        sidebar = sidebar(
-          shiny::selectInput(ns("pillar"), label = "Select Pillar",
-                             choices = str_to_sentence(national_summary$Pillar) |>
-                               str_wrap(width = 15), selected = "1. Planning")
-        ),
-        tableOutput(ns("table1"))
-      )
+      reactableOutput(ns("table1"))
+      # layout_sidebar(
+      #   fillable = TRUE,
+      #   sidebar = sidebar(
+      #     shiny::selectInput(ns("pillar"), label = "Select Pillar",
+      #                        choices = str_to_sentence(national_summary$Pillar) |>
+      #                          str_wrap(width = 15), selected = "1. Planning")
+      #   ),
+      #   reactableOutput(ns("table1"))
+      # )
     )
-
-
-
   )
 }
 
@@ -83,21 +67,53 @@ mod_national_tab_server <- function(id){
         mutate(Pillar = str_to_sentence(Pillar) |>
                  str_wrap(width = 15)) |>
         ggplot() +
-        geom_col(aes(x = Pillar, y = `9-7m`), fill = "#00b4d8") +
+        geom_col(aes(x = Pillar, y = `9-7m`), fill = green_color) +
         theme_classic() +
         #scale_x_reverse()+
         coord_flip()
 
     })
 
-    output$table <- renderTable({
+    output$table <- renderReactable({
 
-      national_summary
-    })
+      national_summary |>
+        reactable(
+          pagination = FALSE,
+          showSortIcon = FALSE,
+          compact = TRUE,
+          columns = list(
+            Pillar = pillar_style,
+            `9-7m` = pct_col_summary,
+            `6-4m` = pct_col_summary,
+            `3m` = pct_col_summary,
+            `2m` = pct_col_summary,
+            `1m` = pct_col_summary,
+            `2wk` = pct_col_summary,
+            `1wk` = pct_col_summary
+            )
+          )
+      })
 
-    output$table1 <- renderTable({
+    output$table1 <- renderReactable({
 
-      national_detail
+      national_detail |>
+        reactable(
+          pagination = FALSE,
+          showSortIcon = FALSE,
+          compact = TRUE,
+          columns = list(
+            Pillar = pillar_style,
+            `9-7m` = pct_col_detial,
+            `6-4m` = pct_col_detial,
+            `3m` = pct_col_detial,
+            `2m` = pct_col_detial,
+            `1m` = pct_col_detial,
+            `2wk` = pct_col_detial,
+            `1wk` = pct_col_detial
+          ),
+          filterable = T,
+          elementId = "national_detail_table"
+        )
     })
 
   })
