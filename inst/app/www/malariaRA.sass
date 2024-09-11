@@ -5,12 +5,18 @@ $text_color: #191919;
 $card_border_radius: 5px;
 $card_border_color: #a0aa674d;
 $font_card_header: 185 11px / 20px "Ubuntu", sans-serif;
+$green_color: #0a9396;
+$red_color: #f07167;
+$orange_color: #fcbf49;
+$grey_colour: #777;
+
 /*Page */
 
 body
   background-color: $page_background_color;
   color: $text_color
   font: $font_card_header;
+  font-weight: lighter;
   letter-spacing: normal;
   height: auto;
   margin: 0;
@@ -39,6 +45,7 @@ body
    display: block;
    margin: 4px;
    font: 185 19px / 20px "Ubuntu", sans-serif;
+   font-weight: 400;
    text-align: center;
 
 
@@ -71,12 +78,6 @@ ul
 
 
 
-
-.shiny-input-container:not(.shiny-input-container-inline)
-    width: -webkit-fill-available;
-
-
-
 %cardextension
   background-color: $contianer_background_color;
   position: relative;
@@ -89,6 +90,51 @@ ul
 .singlevaluebox
   @extend %cardextension;
   height: 100px;
+
+%circles
+    width: 72px;
+    height: 22px;
+    border-radius: 50px;
+    line-height: 100px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 66px;
+    margin-right: -66px;
+    margin-bottom: -6px;
+
+.poor-status-cricle
+  @extend %circles;
+  background: $red_color ;
+
+.mid-status-cricle
+  @extend %circles;
+  background: $orange_color;
+
+.good-status-cricle
+  @extend %circles;
+  background: $green_color;
+
+.status
+  margin-left: 0px;
+  padding-bottom: 14px;
+  display: inline-block;
+  font: $font_card_header;
+  font-weight: bold;
+  color: #fff;
+
+
+.card
+  &.districtselect
+    @extend %cardextension;
+    padding-top: 20px;
+    font: $font_card_header;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+.selected
+  &.active
+    width: 100%;
 
 .cardrow2
   @extend %cardextension;

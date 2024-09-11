@@ -11,10 +11,11 @@
 
 green_color <- "#0a9396"
 red_color <- "#f07167"
+orange_color <- "#fcbf49"
 grey_colour <- "#777"
 
-
-pct_col_summary <- reactable::colDef(
+## National
+pct_col_summary_national <- reactable::colDef(
   maxWidth = 60,
   class = "number",
   footer = function(value){
@@ -28,7 +29,36 @@ pct_col_summary <- reactable::colDef(
   style = function(value) {
     if(is.na(value)){ list(background = "#FFFFFF")}
     else{
-      if (value > 80) {
+      if (value > 95) {
+        color <- green_color
+      } else if ( value >= 80 & value <= 95) {
+        color <- orange_color
+      } else if ( value < 80 ) {
+        color <- red_color
+      } else {
+        color <- grey_colour
+      }
+      list(background = color, color = "#FFFFFF", fontWeight = "bold")
+    }
+  }
+)
+
+## district
+pct_col_summary_district <- reactable::colDef(
+  maxWidth = 60,
+  class = "number",
+  footer = function(value){
+    if(!is.numeric(value)){paste("")}
+    else{ paste0(sprintf("%.0f", mean(value,na.rm = T )),"%")}},
+
+  cell = function(value){
+    if(is.na(value)){paste("")}
+    else{paste0(format(value, digits = 1, nsmall = 0), "%")}},
+
+  style = function(value) {
+    if(is.na(value)){ list(background = "#FFFFFF")}
+    else{
+      if (value >= 80) {
         color <- green_color
       } else if (value < 80) {
         color <- red_color

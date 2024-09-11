@@ -11,6 +11,18 @@ mod_national_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
 
+    div(class = "card districtselect",
+       HTML(
+
+         '<div>
+            <div class="poor-status-cricle"></div> <span class = "status" > Below 80%</span>
+            <div class="mid-status-cricle"></div> <span class = "status" > 80% - 95%</span>
+            <div class="good-status-cricle"></div> <span class = "status" > Above 95%</span>
+        </div> '
+
+       ),
+    ),
+
     layout_columns(
       mod_valuebox_ui(id = "valuebox_1",  title = "Over all preparedness" ,
                       icon = "clipboard-data",  value = "60%"),
@@ -63,13 +75,23 @@ mod_national_tab_server <- function(id){
     ns <- session$ns
 
     output$plot <- renderPlot({
-      national_summary |>
-        mutate(Pillar = str_to_sentence(Pillar) |>
-                 str_wrap(width = 15)) |>
-        ggplot() +
-        geom_col(aes(x = Pillar, y = `9-7m`), fill = green_color) +
+
+
+      plot_data <- national_summary |>
+                  mutate(Pillar = str_to_sentence(Pillar)|> str_wrap(width = 15),
+                         status = case_when(`9-7m` >= 95 ~ "good",
+                                            `9-7m` >= 80 ~ "mid",
+                                            .default = "poor"))
+
+        ggplot(plot_data,aes(x = Pillar, y = `9-7m`, fill = status)) +
+        geom_col(show.legend = F) +
+        geom_label(aes(label = glue::glue("{`9-7m`}%"), fill = status),
+                   color = "white", show.legend = F, fontface = "bold")+
         theme_classic() +
-        #scale_x_reverse()+
+        scale_fill_manual(values = c("good" = green_color,
+                                     "mid" = orange_color,
+                                     "poor" = red_color))+
+        scale_x_discrete(limits=rev)+
         coord_flip()
 
     })
@@ -83,13 +105,13 @@ mod_national_tab_server <- function(id){
           compact = TRUE,
           columns = list(
             Pillar = pillar_style,
-            `9-7m` = pct_col_summary,
-            `6-4m` = pct_col_summary,
-            `3m` = pct_col_summary,
-            `2m` = pct_col_summary,
-            `1m` = pct_col_summary,
-            `2wk` = pct_col_summary,
-            `1wk` = pct_col_summary
+            `9-7m` = pct_col_summary_national,
+            `6-4m` = pct_col_summary_national,
+            `3m` = pct_col_summary_national,
+            `2m` = pct_col_summary_national,
+            `1m` = pct_col_summary_national,
+            `2wk` = pct_col_summary_national,
+            `1wk` = pct_col_summary_national
             )
           )
       })
