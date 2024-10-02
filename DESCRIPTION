@@ -8,6 +8,7 @@ License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.2),
     golem (>= 0.4.1),
+    ruODK (>= 1.4.9.9002),
     shiny (>= 1.9.1),
     shinyWidgets
 Encoding: UTF-8
