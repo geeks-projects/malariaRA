@@ -25,13 +25,14 @@ mod_national_tab_ui <- function(id){
 
     layout_columns(
       mod_valuebox_ui(id = "valuebox_1",  title = "Over all preparedness" ,
-                      icon = "clipboard-data",  value = "60%"),
+                      icon = "clipboard-data",  value = "90%"),
 
-      mod_valuebox_ui(id = "valuebox_2",   title = "Number of districts ready",
-                      icon = "hospital",  value = "70"),
+      mod_valuebox_ui(id = "valuebox_2",   title = "Number of targeted districts",
+                      icon = "hospital",  value = "95"),
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
-                      icon = "calendar-event",  value = "120")),
+                      icon = "calendar-event",
+                      value = difftime(ymd('20250425'), today(), units="days",tz = "Africa/Kampala"))),
 
     ## Row 2
 
@@ -39,7 +40,7 @@ mod_national_tab_ui <- function(id){
       width = 1/2,
       full_screen = F,
       card(class = "cardrow2",
-        full_screen = TRUE, card_header("Overall Score (%) for Current timeline :"),
+        full_screen = TRUE, card_header("Overall Score (%) for Current timeline : 9-7m"),
            plotOutput(ns("plot"))),
 
       card(class = "cardrow2",
@@ -101,10 +102,12 @@ mod_national_tab_server <- function(id){
       national_summary |>
         reactable(
           pagination = FALSE,
+          bordered = T,
           showSortIcon = FALSE,
           compact = TRUE,
           columns = list(
             Pillar = pillar_style,
+            `12-10m` = pct_col_summary_national,
             `9-7m` = pct_col_summary_national,
             `6-4m` = pct_col_summary_national,
             `3m` = pct_col_summary_national,
@@ -122,9 +125,11 @@ mod_national_tab_server <- function(id){
         reactable(
           pagination = FALSE,
           showSortIcon = FALSE,
+          bordered = T,
           compact = TRUE,
           columns = list(
             Pillar = pillar_style,
+            `12-10m` = pct_col_detial,
             `9-7m` = pct_col_detial,
             `6-4m` = pct_col_detial,
             `3m` = pct_col_detial,

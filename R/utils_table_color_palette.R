@@ -29,9 +29,9 @@ pct_col_summary_national <- reactable::colDef(
   style = function(value) {
     if(is.na(value)){ list(background = "#FFFFFF")}
     else{
-      if (value > 95) {
+      if (value >= 95) {
         color <- green_color
-      } else if ( value >= 80 & value <= 95) {
+      } else if ( value >= 80 & value < 95) {
         color <- orange_color
       } else if ( value < 80 ) {
         color <- red_color

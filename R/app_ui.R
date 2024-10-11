@@ -2,7 +2,7 @@
 #'
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
-#' @import shiny bslib bsicons ggplot2 dplyr stringr forcats reactable
+#' @import shiny bslib bsicons ggplot2 dplyr stringr forcats reactable lubridate
 #' @noRd
 app_ui <- function(request) {
   tagList(
