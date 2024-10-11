@@ -2,7 +2,7 @@
 #'
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
-#' @import shiny bslib bsicons ggplot2 dplyr stringr forcats
+#' @import shiny bslib bsicons ggplot2 dplyr stringr forcats reactable
 #' @noRd
 app_ui <- function(request) {
   tagList(
@@ -10,11 +10,17 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
+      theme =  bslib::bs_theme(version = 5,
+                               # heading_font = bslib::font_google("Ubuntu"),
+                               # base_font = bslib::font_google("Roboto")
+                               ),
+    #  tags$style('ul li:nth-child(1) {width: 600px;}
+    #                ul li:nth-child(2) {width: 600px;}'),
       mod_dashboard_heading_ui("dashboard_heading_1"),
       navset_card_underline(
         nav_panel("National", mod_national_tab_ui("national_tab_1")),
 
-        nav_panel("District", tableOutput("summary")),
+        nav_panel("District", mod_district_tab_ui("district_tab_1")),
 
       )
     )
