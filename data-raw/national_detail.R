@@ -1,5 +1,11 @@
 ## code to prepare `national_detail` dataset goes here
-library(readxl)
-national_detail <- read_xlsx("data-raw/national_detail.xlsx")
+
+library(ruODK)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(stringr)
+
+
 
 usethis::use_data(national_detail, overwrite = TRUE)

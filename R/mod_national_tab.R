@@ -25,10 +25,10 @@ mod_national_tab_ui <- function(id){
 
     layout_columns(
       mod_valuebox_ui(id = "valuebox_1",  title = "Over all preparedness" ,
-                      icon = "clipboard-data",  value = "90%"),
+                      icon = "clipboard-data",  value = glue::glue("{round(national_summary_score[1,assessment_period])}%")),
 
       mod_valuebox_ui(id = "valuebox_2",   title = "Number of targeted districts",
-                      icon = "hospital",  value = "95"),
+                      icon = "hospital",  value = "105"),
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
                       icon = "calendar-event",
@@ -40,7 +40,7 @@ mod_national_tab_ui <- function(id){
       width = 1/2,
       full_screen = F,
       card(class = "cardrow2",
-        full_screen = TRUE, card_header("Overall Score (%) for Current timeline : 9-7m"),
+        full_screen = TRUE, card_header(glue::glue("Overall Score (%) for Current timeline :{assessment_period}")),
            plotOutput(ns("plot"))),
 
       card(class = "cardrow2",
@@ -66,6 +66,7 @@ mod_national_tab_ui <- function(id){
       # )
     )
   )
+
 }
 
 #' national_tab Server Functions
@@ -77,25 +78,33 @@ mod_national_tab_server <- function(id){
 
     output$plot <- renderPlot({
 
+      national_summary_df <- national_summary |>
+        select(pillar, {{assessment_period}})
 
-      plot_data <- national_summary |>
-                  mutate(Pillar = str_to_sentence(Pillar)|> str_wrap(width = 15),
-                         status = case_when(`9-7m` >= 95 ~ "good",
-                                            `9-7m` >= 80 ~ "mid",
+      colnames(national_summary_df) <- c("pillar", "score")
+
+
+      plot_data <- national_summary_df |>
+                  mutate(pillar = str_to_sentence(pillar)|> str_wrap(width = 15),
+                         status = case_when(score >= 95 ~ "good",
+                                            score >= 80 ~ "mid",
                                             .default = "poor"))
 
-        ggplot(plot_data,aes(x = Pillar, y = `9-7m`, fill = status)) +
+        ggplot(plot_data,aes(x = pillar, y = score, fill = status)) +
         geom_col(show.legend = F) +
-        geom_label(aes(label = glue::glue("{`9-7m`}%"), fill = status),
+        geom_label(aes(label = glue::glue("{round(score)}%"), fill = status),
                    color = "white", show.legend = F, fontface = "bold")+
         theme_classic() +
         scale_fill_manual(values = c("good" = green_color,
                                      "mid" = orange_color,
                                      "poor" = red_color))+
         scale_x_discrete(limits=rev)+
-        coord_flip()
+        coord_flip()+
+          labs(x = "Pillar",
+               y = "Score")
 
     })
+
 
     output$table <- renderReactable({
 
@@ -106,7 +115,7 @@ mod_national_tab_server <- function(id){
           showSortIcon = FALSE,
           compact = TRUE,
           columns = list(
-            Pillar = pillar_style,
+            pillar = pillar_style,
             `12-10m` = pct_col_summary_national,
             `9-7m` = pct_col_summary_national,
             `6-4m` = pct_col_summary_national,

@@ -1,7 +1,159 @@
-#' connect_ODK
+
+################ Planning ######################
+national_planning_activities_12_10m <- c("1_1", "1_2", "1_3", "1_4", "1_5", "1_6", "1_7", "1_8", "1_9", "1_10")
+
+national_planning_activities_9_7m <- c("1_1", "1_3", "1_4", "1_5", "1_6", "1_7", "1_8", "1_9", "1_10", "1_12")
+
+national_planning_activities_6_4m <- c("1_1", "1_4", "1_6", "1_7", "1_8", "1_11", "1_12" )
+
+national_planning_activities_3m <- c("1_11", "1_12")
+
+national_planning_activities_2m <-  c("1_11", "1_12")
+
+national_planning_activities_1m <- c("1_11", "1_12")
+
+national_planning_activities_2wk <- c()
+
+national_planning_activities_1wk <- c()
+
+################ Training ######################
+national_training_activities_12_10m <- c()
+
+national_training_activities_9_7m <- c("2_1")
+
+national_training_activities_6_4m <- c("2_1", "2_2", "2_3")
+
+national_training_activities_3m <- c("2_3", "2_4")
+
+national_training_activities_2m <- c("2_3", "2_4")
+
+national_training_activities_1m <- c("2_3", "2_4")
+
+national_training_activities_2wk <- c("2_4")
+
+national_training_activities_1wk <- c()
+
+
+################ M & E ######################
+national_m_e_activities_12_10m <- c()
+
+national_m_e_activities_9_7m<- c("3_1", "3_2")
+
+national_m_e_activities_6_4m <- c("3_1", "3_2")
+
+national_m_e_activities_3m <- c("3_2", "3_3", "3_4")
+
+national_m_e_activities_2m <- c("3_2", "3_3", "3_4")
+
+national_m_e_activities_1m <- c("3_2", "3_3", "3_4")
+
+national_m_e_activities_2wk <- c()
+
+national_m_e_activities_1wk <- c()
+
+
+
+################ Cold Chain and Logistics ######################
+national_cold_chain_and_logistics_activities_12_10m <- c("4_1", "4_2", "4_3")
+
+national_cold_chain_and_logistics_activities_9_7m <- c("4_1", "4_2", "4_3", "4_4", "4_5")
+
+national_cold_chain_and_logistics_activities_6_4m <- c("4_1", "4_2", "4_3", "4_4", "4_5")
+
+national_cold_chain_and_logistics_activities_3m <- c( "4_6", "4_7")
+
+national_cold_chain_and_logistics_activities_2m <- c( "4_6", "4_7")
+
+national_cold_chain_and_logistics_activities_1m <- c( "4_6", "4_7")
+
+national_cold_chain_and_logistics_activities_2wk <- c()
+
+national_cold_chain_and_logistics_activities_1wk <- c()
+################ Advocacy and communication ######################
+
+national_advocacy_communication_activities_12_10m <- c()
+
+national_advocacy_communication_activities_9_7m <- c("5_1", "5_2", "5_3", "5_4")
+
+national_advocacy_communication_activities_6_4m <- c("5_3", "5_4", "5_5", "5_6")
+
+national_advocacy_communication_activities_3m <- c("5_4", "5_5", "5_6")
+
+national_advocacy_communication_activities_2m <- c("5_4", "5_5", "5_6")
+
+national_advocacy_communication_activities_1m <-  c("5_4", "5_5", "5_6")
+
+national_advocacy_communication_activities_2wk <- c()
+
+national_advocacy_communication_activities_1wk <- c()
+
+
+################ All 6 months ######################
+
+
+activities_12_10m <- c(national_planning_activities_12_10m,
+                       national_training_activities_12_10m,
+                       national_m_e_activities_12_10m,
+                       national_cold_chain_and_logistics_activities_12_10m,
+                       national_advocacy_communication_activities_12_10m )
+
+
+activities_9_7m <- c(national_planning_activities_9_7m,
+                     national_training_activities_9_7m,
+                     national_m_e_activities_9_7m,
+                     national_cold_chain_and_logistics_activities_9_7m,
+                     national_advocacy_communication_activities_9_7m )
+
+activities_6_4m <- c(national_planning_activities_6_4m,
+                     national_training_activities_6_4m,
+                     national_m_e_activities_6_4m,
+                     national_cold_chain_and_logistics_activities_6_4m,
+                     national_advocacy_communication_activities_6_4m )
+
+activities_3m <- c(national_planning_activities_3m,
+                   national_training_activities_3m,
+                   national_m_e_activities_3m,
+                   national_cold_chain_and_logistics_activities_3m,
+                   national_advocacy_communication_activities_3m )
+
+activities_2m <- c(national_planning_activities_2m,
+                   national_training_activities_2m,
+                   national_m_e_activities_2m,
+                   national_cold_chain_and_logistics_activities_2m,
+                   national_advocacy_communication_activities_2m )
+
+activities_1m <- c(national_planning_activities_1m,
+                   national_training_activities_1m,
+                   national_m_e_activities_1m,
+                   national_cold_chain_and_logistics_activities_1m,
+                   national_advocacy_communication_activities_1m )
+activities_2wk <- c(national_planning_activities_2wk,
+                    national_training_activities_2wk,
+                    national_m_e_activities_2wk,
+                    national_cold_chain_and_logistics_activities_2wk,
+                    national_advocacy_communication_activities_2wk )
+
+activities_1wk <- c(national_planning_activities_1wk,
+                    national_training_activities_1wk,
+                    national_m_e_activities_1wk,
+                    national_cold_chain_and_logistics_activities_1wk,
+                    national_advocacy_communication_activities_1wk )
+
+
+data(ODKtoDB_national)
+data(questions_national)
+data(national_placeholder)
+data(period_selectors)
+data(national_summary_denominator)
+
+assessment_period <- ODKtoDB_national$time_of_assessment[1]
+
+last_updated <- as.Date(ODKtoDB_national$endtime[1])
+
+
+#' national_data_cleaner
 #'
-#' @import ruODK
-#' @description A fct function to connect to connect the ODK server
+#' @description A fct function to clean ODK data national data
 #'
 #' @return The return value, if any, from executing the function.
 #'
@@ -9,136 +161,228 @@
 #'
 #'
 
-# connect_ODK <- function(svc_url_level = c("District", "National")) {
-#
-#   if(svc_url_level == "National") {
-#
-#     ruODK::ru_setup(
-#       svc = Sys.getenv("SVC_URL_National"),
-#       un = Sys.getenv("ODKC_UN"),
-#       pw = Sys.getenv("ODKC_PW"),
-#       tz = "Africa/Kampala",
-#       verbose = F # great for demo or debugging
-#       )
-#
-#   }else if(svc_url_level == "District"){
-#
-#     ruODK::ru_setup(
-#       svc = Sys.getenv("SVC_URL_District"),
-#       un = Sys.getenv("ODKC_UN"),
-#       pw = Sys.getenv("ODKC_PW"),
-#       tz = "Africa/Kampala",
-#       verbose = F # great for demo or debugging
-#     )
-#
-#
-#   }
-#
-#   client<-  ruODK::odata_submission_get()
-#   tibble::as_tibble(client)
-# }
-#
-# #connect_ODK(svc_url_level = "District")
-#
-# national_data <- connect_ODK(svc_url_level = "National")
-#
-# ################ Planning ######################
-#
-# national_planning_activities <- c( "political_commitment", "operational_plan_develop", "intro_budget_reviewed", "additional_funds_mobilized",
-#                                           "malaria_vaccine_deli_strategy", "ntwg_established", "twg_has_tor", "gavi_vaccine_intro_grant_rec",
-#                                           "briefing_with_twg_moh_partners_held", "gavi_additional_ta_confirm", "funds_available_to_district","micro_plan_developed" )
-#
-# national_planning_activities_6months <- c( "political_commitment", "additional_funds_mobilized", "ntwg_established", "twg_has_tor", "gavi_vaccine_intro_grant_rec",
-#                                     "funds_available_to_district","micro_plan_developed" )
-#
-# ################ Training ######################
-# national_training_activities <- c("training_plan_and_materials_developed", "training_materials_distributed",
-#                                          "training_trainers_carried_out_at_national_subnational_level", "training_of_hw_chv_supervisors_carried_out" )
-#
-# national_training_activities_6months <- c("training_plan_and_materials_developed", "training_materials_distributed",
-#                                   "training_trainers_carried_out_at_national_subnational_level" )
-#
-# ################ M & E ######################
-# national_m_e_activities <- c("monitoring_indicators_dev_reviewed",
-#                                     "monitoring_tools_updated_with_malaria",
-#                                     "monitoring_tools_printed_distributed_to_hf",
-#                                     "pre_intro_supervisory_visits_conducted"  )
-# national_m_e_activities_6months <- c("monitoring_indicators_dev_reviewed",
-#                              "monitoring_tools_updated_with_malaria" )
-#
-#
-# ################ Cold Chain and Logistics ######################
-# national_cold_chain_and_logistics_activities <- c("vaccine_licensure_granted_by_nra",
-#                                                          "confirmation_of_vacc_delivery_date_received",
-#                                                           "integration_available",
-#                                                           "coldchain_assessment_completed",
-#                                                           "waste_mgt_assessment_completed",
-#                                                           "tracking_vaccine_supply_mgt_in_place",
-#                                                           "vaccine_injection_supply_rec_distributed" )
-#
-# national_cold_chain_and_logistics_activities_6months <- c("vaccine_licensure_granted_by_nra",
-#                                                   "confirmation_of_vacc_delivery_date_received",
-#                                                   "integration_available",
-#                                                   "coldchain_assessment_completed",
-#                                                   "waste_mgt_assessment_completed")
-#
-# ################ Advocacy and communication ######################
-# national_advocacy_communication_activities <- c("budgeted_national_plan_4_acsm_developed_and_finalized",
-#                                                        "acsm_materials_developed_validated_and_translated",
-#                                                        "risk_comm_mgt_plan_developed",
-#                                                        "comm_plan_implemented",
-#                                                        "acsm_materials_distributed_to_hf_comm",
-#                                                        "launch_ceremony_planned")
-#
-# national_advocacy_communication_activities_6months <- c("risk_comm_mgt_plan_developed",
-#                                                          "comm_plan_implemented",
-#                                                          "acsm_materials_distributed_to_hf_comm",
-#                                                          "launch_ceremony_planned" )
-#
-#
-#
-# ################ All 6 months ######################
-# activities_6months <- c(national_planning_activities_6months,
-#                         national_training_activities_6months,
-#                         national_m_e_activities_6months,
-#                         national_cold_chain_and_logistics_activities_6months,
-#                         national_advocacy_communication_activities_6months )
-#
-#
-#
-#
-# national_data_summary <- national_data |>
-#   filter(time_of_assessment == "6 Months") |>
-#   select(-c(c(starttime:start_date_activity), c(level_supervision:planning_coordination),
-#             c(training,m_e,cold_chain_and_logistics, advocacy_communication, thank_you),
-#             c(meta_instance_id:odata_context )) ) |>
-#   select(all_of(activities_6months)) |>
-#   tidyr::pivot_longer(political_commitment:launch_ceremony_planned,
-#                       names_to = "critical_activities",
-#                       values_to = "status"
-#                       ) |>
-#   mutate(pillar = case_when(critical_activities %in% national_planning_activities ~ "planning",
-#                             critical_activities %in% national_training_activities ~ "training",
-#                             critical_activities %in% national_m_e_activities ~ "m_e",
-#                             critical_activities %in% national_cold_chain_and_logistics_activities ~ "cold_chain_and_logistics",
-#                             critical_activities %in% national_advocacy_communication_activities ~ "advocacy_communication",
-#                             .default = NULL)) |>
-#    mutate(status = case_when(status == "yes" ~ TRUE,
-#                              status == "no" ~ FALSE,
-#                              .default = FALSE)) |>
-#    group_by(pillar) |>
-#    summarise(n = sum(status)) |>
-#    mutate(score_denominator_6months = case_when(pillar == "planning" ~ 7,
-#                                                 pillar == "training" ~ 3,
-#                                                 pillar == "m_e" ~ 2,
-#                                                 pillar == "cold_chain_and_logistics" ~ 5,
-#                                                 pillar == "advocacy_communication" ~ 4,
-#                                                 .default = NULL
-#                                                 )) |>
-#    mutate(score = round((n/score_denominator_6months)*100, 1))
-#
-# national_data_summary
+
+national_data_cleaner <- function(data){
+    data |>
+    tidyr::pivot_longer(political_commitment_1_1:launch_ceremony_planned_5_6,
+                        names_to = "critical_activities",
+                        values_to = "status") |>
+    mutate(status = str_to_title(status)) |>
+    right_join(y = questions_national, by = c("critical_activities" = "name")) |>
+    select(-critical_activities)
+}
 
 
+#' national_summary_fn
+#'
+#' @import dplyr
+#' @description A fct function to summaries detial national data
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+#'
+#'
+
+national_summary_fn <- function(assessment_period = c("12-10m", "9-7m", "6-4m", "3m", "2m", "1m", "2wk", "1wk")) {
+
+  columns_needed <-  period_selectors |>
+    filter(selected == assessment_period) |> dplyr::pull(needed)
+
+  national_data_clean |>
+    filter(time_of_assessment %in% columns_needed) |>
+    mutate(status = case_when(status == "Yes" ~ TRUE,
+                              status == "No" ~ FALSE,
+                              .default = FALSE)) |>
+    group_by(time_of_assessment, pillar) |>
+    summarise(n = sum(status)) |>
+    filter(!(pillar == "others" | is.na(time_of_assessment ))) |>
+    tidyr::pivot_wider(names_from = time_of_assessment, values_from = n) |>
+    left_join(y = national_summary_denominator |> select(all_of(c("pillar", columns_needed))),
+              by = c("pillar" = "pillar"), suffix = c("", "_den"))
+}
+
+#' national_summary_last_part
+#'
+#' @import dplyr
+#' @importFrom dplyr select
+#' @description A fct function to organses national data
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+#'
+#'
+
+
+
+national_summary_last_part <- function(data){
+  data |>
+    left_join(y = national_placeholder) |>
+    dplyr::select(c(pillar, `12-10m`,`9-7m`, `6-4m`, `3m`, `2m`, `1m`, `2wk`, `1wk`))
+}
+##### Essential data ###########
+
+ODKtoDB_national_essential_clean <- ODKtoDB_national |>
+  dplyr::select(-c(c(starttime:start_date_activity), c(level_supervision:planning_coordination),
+            c(training,m_e,cold_chain_and_logistics, national_level_on_track_intro_malaria,overall_comments, advocacy_communication, thank_you),
+            c(meta_instance_id:odata_context )) )
+
+
+national_essential_12_10m <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "12-10m" ) |>
+  mutate(case_when(
+    time_of_assessment == "12-10m" ~ across(!c(time_of_assessment, ends_with(activities_12_10m)), ~ NA)
+  ))
+
+
+national_essential_9_7m <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "9-7m" ) |>
+  mutate(case_when(
+    time_of_assessment == "9-7m" ~ across(!c(time_of_assessment, ends_with(activities_9_7m)), ~ NA)
+  ))
+
+national_essential_6_4m <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "6-4m" ) |>
+  mutate(case_when(
+    time_of_assessment == "6-4m" ~ across(!c(time_of_assessment, ends_with(activities_6_4m)), ~ NA)
+  ))
+
+
+national_essential_3m <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "3m" ) |>
+  mutate(case_when(
+    time_of_assessment == "3m" ~ across(!c(time_of_assessment, ends_with(activities_3m)), ~ NA)
+  ))
+
+
+national_essential_2m <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "2m" ) |>
+  mutate(case_when(
+    time_of_assessment == "2m" ~ across(!c(time_of_assessment, ends_with(activities_2m)), ~ NA)
+  ))
+
+national_essential_1m <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "1m" ) |>
+  mutate(case_when(
+    time_of_assessment == "1m" ~ across(!c(time_of_assessment, ends_with(activities_1m)), ~ NA)
+  ))
+
+national_essential_2wk <- ODKtoDB_national_essential_clean |>
+  filter( time_of_assessment == "2wk" ) |>
+  mutate(case_when(
+    time_of_assessment == "2wk" ~ across(!c(time_of_assessment, ends_with(activities_2wk)), ~ NA)
+  ))
+
+# national_essential_1wk <- ODKtoDB_national_essential_clean |>
+#   filter( time_of_assessment == "1wk" ) |>
+#   mutate(case_when(
+#      time_of_assessment == "1wk" ~ across(!c(time_of_assessment, ends_with(activities_1wk)), ~ NA)
+#   ))
+
+
+national_essential <- bind_rows(national_essential_12_10m |> mutate(across(everything(), as.character)),
+                                 national_essential_9_7m |> mutate(across(everything(), as.character)),
+                                 national_essential_6_4m |> mutate(across(everything(), as.character)),
+                                 national_essential_3m|> mutate(across(everything(), as.character)),
+                                 national_essential_2m |> mutate(across(everything(), as.character)),
+                                 national_essential_1m|> mutate(across(everything(), as.character)),
+                                 national_essential_2wk|> mutate(across(everything(), as.character)))
+
+
+### National detail. ##########
+national_detail <- national_essential |>
+  national_data_cleaner() |>
+  pivot_wider(names_from = time_of_assessment, values_from = status) |>
+  left_join(y = national_placeholder |> mutate(across(`12-10m`: `1wk`, ~ "No"))) |>
+  select(c(pillar, label, `12-10m`,`9-7m`, `6-4m`, `3m`, `2m`, `1m`, `2wk`, `1wk`)) |>
+  rename("Pillar" = pillar,
+         "Critical activities (desired timeframe for completion shaded light yellow)" = label) |>
+  #mutate(across(`12-10m`: `1wk`, str_to_title)) |>
+  filter(Pillar != "others")
+
+
+####
+
+
+
+### National Summary #######
+
+
+national_data_clean <-  national_essential |>
+  national_data_cleaner()
+
+national_summary <- switch(
+  assessment_period,
+  "6-4m"  = {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()},
+  "3m"      = {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             `3m` = round((`3m` /`3m_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()},
+  "2m"      = {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             `3m` = round((`3m` /`3m_den`)*100, 1),
+             `2m` = round((`2m` /`2m_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()},
+  "1m"      = {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             `3m` = round((`3m` /`3m_den`)*100, 1),
+             `2m` = round((`2m` /`2m_den`)*100, 1),
+             `1m` = round((`1m` /`1m_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()},
+  "2wk"      = {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             `3m` = round((`3m` /`3m_den`)*100, 1),
+             `2m` = round((`2m` /`2m_den`)*100, 1),
+             `1m` = round((`1m` /`1m_den`)*100, 1),
+             `2wk` = round((`2wk` /`2wk_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()},
+  "1wk"      = {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             `3m` = round((`3m` /`3m_den`)*100, 1),
+             `2m` = round((`2m` /`2m_den`)*100, 1),
+             `1m` = round((`1m` /`1m_den`)*100, 1),
+             `2wk` = round((`2wk` /`2wk_den`)*100, 1),
+             `1wk` = round((`1wk` /`1wk_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()},
+  {
+    national_summary_fn(assessment_period = "6-4m") |>
+      mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
+             `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
+             `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
+             .keep = "unused") |>
+      national_summary_last_part()}
+)
+
+
+national_summary_score <- national_summary |>
+  summarise(pillar = "Score",
+            across(where(is.numeric), mean, na.rm = T))
 
 
