@@ -1,0 +1,13 @@
+name: uganda_malaria_readiness_assessment
+title: uganda_malaria_readiness_assessment
+username: amanyiraho
+account: amanyiraho
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13091503
+bundleId: 9258784
+url: https://amanyiraho.shinyapps.io/uganda_malaria_readiness_assessment/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: _pkgdown.yml|.github/workflows/pkgdown.yaml|.github/workflows/R-CMD-check.yaml|.github/workflows/test-coverage.yaml|dev/01_start.R|dev/02_dev.R|dev/03_deploy.R|dev/run_dev.R|man/figures/README-pressure-1.png|man/run_app.Rd|NEWS.md|README.md|README.Rmd|tests/testthat/test-mod_national_tab.R|tests/testthat.R|docs

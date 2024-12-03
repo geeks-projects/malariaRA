@@ -36,11 +36,12 @@ mod_district_tab_ui <- function(id){
       mod_valuebox_ui(id = "valuebox_1",  title = "Over all preparedness" ,
                       icon = "clipboard-data",  value = "60%"),
 
-      mod_valuebox_ui(id = "valuebox_2",   title = "Number of targeted",
-                      icon = "hospital",  value = "95"),
+      mod_valuebox_ui(id = "valuebox_2",   title = "Number of districts ready",
+                      icon = "hospital",  value = "70"),
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
-                      icon = "calendar-event",  value = "120")),
+                      icon = "calendar-event",
+                      value = difftime(ymd('20250425'), today(), units="days",tz = "Africa/Kampala"))),
     ## Row select-district
 
      # card(class = "carddistrict",
@@ -138,6 +139,7 @@ mod_district_tab_server <- function(id){
       district_summary |>
         reactable(
           pagination = FALSE,
+          bordered = T,
           showSortIcon = FALSE,
           compact = TRUE,
           columns = list(
@@ -156,6 +158,7 @@ mod_district_tab_server <- function(id){
       district_detail |>
         reactable(
           pagination = FALSE,
+          bordered = T,
           showSortIcon = FALSE,
           compact = TRUE,
           columns = list(
