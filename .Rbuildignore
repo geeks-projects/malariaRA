@@ -16,3 +16,5 @@ $run_dev.*
 ^codecov\.yml$
 ^app\.R$
 ^rsconnect$
+^Dockerfile$
+^\.dockerignore$

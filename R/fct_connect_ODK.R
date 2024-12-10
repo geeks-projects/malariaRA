@@ -1,20 +1,20 @@
 
 ################ Planning ######################
-national_planning_activities_12_10m <- c("1_1", "1_2", "1_3", "1_4", "1_5", "1_6", "1_7", "1_8", "1_9", "1_10")
+national_planning_activities_12_10m <- c("1_1", "1_2", "1_3", "1_4", "1_5", "1_6", "1_7", "1_8", "1_9", "1_10", "1_13", "1_14")
 
-national_planning_activities_9_7m <- c("1_1", "1_3", "1_4", "1_5", "1_6", "1_7", "1_8", "1_9", "1_10", "1_12")
+national_planning_activities_9_7m <- c("1_1", "1_3", "1_4", "1_5", "1_6", "1_7", "1_8", "1_9", "1_10", "1_12",  "1_13", "1_14")
 
-national_planning_activities_6_4m <- c("1_1", "1_4", "1_6", "1_7", "1_8", "1_11", "1_12" )
+national_planning_activities_6_4m <- c("1_1", "1_4", "1_6", "1_7", "1_8", "1_11", "1_12", "1_14")
 
-national_planning_activities_3m <- c("1_11", "1_12")
+national_planning_activities_3m <- c("1_11", "1_12",  "1_14", "1_15")
 
-national_planning_activities_2m <-  c("1_11", "1_12")
+national_planning_activities_2m <-  c("1_11", "1_12", "1_14",  "1_15", "1_16")
 
-national_planning_activities_1m <- c("1_11", "1_12")
+national_planning_activities_1m <- c("1_11", "1_12", "1_14",  "1_15", "1_16")
 
-national_planning_activities_2wk <- c()
+national_planning_activities_2wk <- c("1_14", "1_16")
 
-national_planning_activities_1wk <- c()
+national_planning_activities_1wk <- c("1_14", "1_16")
 
 ################ Training ######################
 national_training_activities_12_10m <- c()
@@ -294,12 +294,13 @@ national_essential <- bind_rows(national_essential_12_10m |> mutate(across(every
 national_detail <- national_essential |>
   national_data_cleaner() |>
   pivot_wider(names_from = time_of_assessment, values_from = status) |>
-  left_join(y = national_placeholder |> mutate(across(`12-10m`: `1wk`, ~ "No"))) |>
+  left_join(y = national_placeholder |> mutate(across(`12-10m`: `1wk`, ~ "Zero"))) |>
   select(c(pillar, label, `12-10m`,`9-7m`, `6-4m`, `3m`, `2m`, `1m`, `2wk`, `1wk`)) |>
   rename("Pillar" = pillar,
          "Critical activities (desired timeframe for completion shaded light yellow)" = label) |>
   #mutate(across(`12-10m`: `1wk`, str_to_title)) |>
   filter(Pillar != "others")
+
 
 
 ####
@@ -383,6 +384,6 @@ national_summary <- switch(
 
 national_summary_score <- national_summary |>
   summarise(pillar = "Score",
-            across(where(is.numeric), mean, na.rm = T))
+            across(where(is.numeric),\(x) mean(x, na.rm = TRUE)))
 
 
