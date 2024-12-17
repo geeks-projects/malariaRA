@@ -15,6 +15,9 @@ app_ui <- function(request) {
                                # heading_font = bslib::font_google("Ubuntu"),
                                # base_font = bslib::font_google("Roboto")
                                ),
+
+      tags$head(includeHTML("inst/app/www/google-analytics.html")),
+
     #  tags$style('ul li:nth-child(1) {width: 600px;}
     #                ul li:nth-child(2) {width: 600px;}'),
       mod_dashboard_heading_ui("dashboard_heading_1"),

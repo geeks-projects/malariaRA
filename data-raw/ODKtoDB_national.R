@@ -32,6 +32,6 @@ connect_ODK <- function(svc_url_level = c("District", "National")) {
 
 #connect_ODK(svc_url_level = "District")
 
-ODKtoDB_national <- connect_ODK(svc_url_level = "National")[c(1, 2, 3), ]
+ODKtoDB_national <- connect_ODK(svc_url_level = "National")[c(1, 3, 4), ]
 
 usethis::use_data(ODKtoDB_national, overwrite = TRUE)
