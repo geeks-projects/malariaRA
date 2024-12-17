@@ -16,8 +16,6 @@ app_ui <- function(request) {
                                # base_font = bslib::font_google("Roboto")
                                ),
 
-      tags$head(includeHTML("inst/app/www/google-analytics.html")),
-
     #  tags$style('ul li:nth-child(1) {width: 600px;}
     #                ul li:nth-child(2) {width: 600px;}'),
       mod_dashboard_heading_ui("dashboard_heading_1"),
@@ -46,6 +44,8 @@ golem_add_external_resources <- function() {
   )
 
   tags$head(
+
+    tags$head(includeHTML(app_sys("app/www/google-analytics.html"))),
     favicon(),
     bundle_resources(
       path = app_sys("app/www"),
