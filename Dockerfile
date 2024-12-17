@@ -21,10 +21,11 @@ RUN Rscript -e 'remotes::install_version("golem",upgrade="never", version = "0.4
 RUN Rscript -e 'remotes::install_version("ggplot2",upgrade="never", version = "3.5.1")'
 RUN Rscript -e 'remotes::install_version("forcats",upgrade="never", version = "1.0.0")'
 RUN Rscript -e 'remotes::install_version("bsicons",upgrade="never", version = "0.1.2")'
+RUN Rscript -e 'remotes::install_github("geeks-projects/malariaRA", dependencies = TRUE)'
 RUN mkdir /build_zone
 ADD . /build_zone
 WORKDIR /build_zone
-RUN R -e 'remotes::install_local(upgrade="never")'
+RUN R -e 'renv::install("remotes");remotes::install_local(upgrade="never")'
 RUN rm -rf /build_zone
-EXPOSE 80
-CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');library(malariaRA);malariaRA::run_app()"
+EXPOSE 3838
+CMD R -e "options('shiny.port'=3838,shiny.host='0.0.0.0');library(malariaRA);malariaRA::run_app()"
