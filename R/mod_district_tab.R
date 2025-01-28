@@ -15,8 +15,10 @@ mod_district_tab_ui <- function(id){
 
     div(class = "card districtselect",
         pickerInput( ns("district"), label = NULL, width = "100%",
-                     choices = c("All Districts", ugandan_map |> sf::st_drop_geometry() |> dplyr::pull(District), multiple = F, selected = "All Districts",
-                                 options = list(title = "districts",`actions-box` = TRUE,size = 10,`selected-text-format` = "count > 2")))
+                     choices = c("All Districts", ugandan_map |> sf::st_drop_geometry() |> dplyr::pull(District)),
+                     multiple = F, selected = "All Districts",
+                     options = list(title = "districts",`actions-box` = TRUE,size = 10,`selected-text-format` = "count > 2")
+                     )
 
         #    )
     ),
@@ -29,19 +31,23 @@ mod_district_tab_ui <- function(id){
         </div> '
 
         ),
+
+        div(class = "last_updated_div",
+            glue::glue("Last Updated: {last_updated_district }")
+        )
     ),
 
 
     layout_columns(
       mod_valuebox_ui(id = "valuebox_1",  title = "Over all preparedness" ,
-                      icon = "clipboard-data",  value = "60%"),
+                      icon = "clipboard-data",  value = glue::glue("{round(district_summary_score[1,assessment_period_district])}%")),
 
       mod_valuebox_ui(id = "valuebox_2",   title = "Number of districts ready",
                       icon = "hospital",  value = "70"),
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
                       icon = "calendar-event",
-                      value = difftime(ymd('20250425'), today(), units="days",tz = "Africa/Kampala"))),
+                      value = difftime(ymd('20250401'), today(), units="days",tz = "Africa/Kampala"))),
     ## Row select-district
 
      # card(class = "carddistrict",

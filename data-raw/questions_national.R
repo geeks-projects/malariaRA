@@ -20,10 +20,5 @@ questions_national <- read_xlsx("data-raw/Malaria Readiness Assessment_National.
                            ))
 
 
-
-
-
-
-
 usethis::use_data(questions_national, overwrite = TRUE)
 
