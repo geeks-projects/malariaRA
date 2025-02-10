@@ -103,6 +103,7 @@ mod_national_tab_server <- function(id){
                                      "mid" = orange_color,
                                      "poor" = red_color))+
         scale_x_discrete(limits=rev)+
+        ylim(c(0, 100)) +
         coord_flip()+
           labs(x = "Pillar",
                y = "Score")

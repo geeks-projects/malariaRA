@@ -1,4 +1,30 @@
 
+
+target_districts <- c( "All Districts", sort( c("Agago", "Amuru","Gulu", "Gulu City", "Kitgum" ,"Lamwo",  "Nwoya", "Omoro", "Pader","Ibanda",
+                      "Isingiro", "Kazo", "Kiruhura","Rubirizi","Manafwa","Mbale", "Mbale City", "Sironko", "Budaka",
+                      "Busia", "Butaleja", "Butebo", "Kibuku", "Pallisa",
+                      "Tororo"   ,     "Buliisa"     ,  "Kikuube"  ,     "Kiryandongo"  , "Bugiri"      ,  "Bugweri",
+                        "Buyende" ,      "Iganga"     ,   "Jinja"   ,      "Jinja City"  ,  "Kaliro"     ,   "Kamuli",
+                      "Luuka"      ,   "Mayuge"        ,"Namayingo"  ,   "Namutumba"    , "Abim"          ,"Kaabong",
+                         "Karenga"  ,     "Kotido"      ,  "Moroto"   ,     "Nabilatuk"  ,   "Nakapiripirit", "Napak",
+                         "Kanungu"   ,    "Alebtong"     , "Amolatar"  ,    "Apac"      ,    "Dokolo"     ,   "Kole",
+                       "Kwania"       , "Lira"          ,"Lira City"   ,  "Otuke"     ,    "Oyam"         , "Buikwe",
+                         "Kayunga"     ,  "Kiboga"      ,  "Luwero"   ,     "Mityana"  ,     "Mukono"      ,  "Nakasongola",
+                     "Bukomansimbi",  "Butambala"    , "Gomba"    ,     "Kalungu"       ,"Kyotera"      , "Lwengo",
+                        "Lyantonde" ,    "Masaka"     ,   "Rakai"  ,       "Sembabule"   ,  "Masaka City",   "Amuria",
+                        "Bukedea"    ,   "Kaberamaido" ,  "Kalaki"  ,      "Kapelebyong"  , "Katakwi"     ,  "Kumi",
+                        "Ngora"       ,  "Serere"       , "Soroti"   ,     "Soroti City"   ,"Bundibugyo"   , "Kamwenge",
+                        "Kasese"      ,  "Kitagwenda"    ,"Kyegegwa"  ,    "Adjumani"   ,   "Arua"        ,  "Arua City",
+                       "Koboko"        ,"Madi-Okollo"   ,"Maracha"     ,  "Moyo"         , "Nebbi"        , "Obongi",
+                         "Pakwach"      , "Terego"       , "Yumbe"      ,   "Zombo"  )))
+
+
+# map_districts <-  ugandan_map |> sf::st_drop_geometry() |> dplyr::pull(District)
+#
+# map_districts[map_districts %in% target_districts]
+# map_districts[!(map_districts %in% target_districts)]
+
+
 ################ Planning ######################
 
 district_planning_activities_3m <- c("1_1", "1_2", "1_3", "1_4", "1_5", "1_6")
@@ -119,15 +145,25 @@ last_updated_district <- as.Date(ODKtoDB_district$endtime[1])
 
 #uuid:c8124cce-1332-4b87-b2e5-7e2e08a83a74
 district_data_cleaner <- function(data, district_selected_pra){
-  data |>
-    filter(district == district_selected_pra) |>
-    select(-c(region, district)) |>
+
+  if(district_selected_pra == "All Districts"){
+  district_essential |>
     tidyr::pivot_longer(operational_plan_develop_1_1:community_awareness_verified_5_3,
                         names_to = "critical_activities",
                         values_to = "status") |>
     mutate(status = str_to_title(status)) |>
     right_join(y = questions_district, by = c("critical_activities" = "name")) |>
     select(-critical_activities)
+  }else{
+    data |>
+      filter(district == district_selected_pra) |>
+      tidyr::pivot_longer(operational_plan_develop_1_1:community_awareness_verified_5_3,
+                          names_to = "critical_activities",
+                          values_to = "status") |>
+      mutate(status = str_to_title(status)) |>
+      right_join(y = questions_district, by = c("critical_activities" = "name")) |>
+      select(-critical_activities)
+  }
 }
 
 
@@ -152,7 +188,7 @@ district_summary_fn <- function(district_data_clean, assessment_period =  c( "3m
     mutate(status = case_when(status == "Yes" ~ TRUE,
                               status == "No" ~ FALSE,
                               .default = FALSE)) |>
-    group_by(time_of_assessment, pillar) |>
+    group_by(district, time_of_assessment, pillar) |>
     summarise(n = sum(status)) |>
     filter(!(pillar == "others" | is.na(time_of_assessment ))) |>
     tidyr::pivot_wider(names_from = time_of_assessment, values_from = n) |>
@@ -182,8 +218,8 @@ district_summary_last_part <- function(data){
 ##### Essential data ###########
 
 ODKtoDB_district_essential_clean <- ODKtoDB_district |>
-  dplyr::select(-c(c(starttime:gps1) , c(level_supervision:other_agency),,
-                   c(planning_coordination, training,m_e,cold_chain_and_logistics, district_level_on_track_intro_malaria,overall_comments, advocacy_communication, thank_you),
+  dplyr::select(-c(c(starttime:gps1) , c(name_supervisor:other_organisation),,
+                   c(date_of_visits, planning_coordination, training,m_e,cold_chain_and_logistics,overall_comments, advocacy_communication, thank_you),
                    c(meta_instance_id:odata_context )) ) |>
   mutate(region = str_to_title(region),
          district = str_to_title(district))
@@ -225,29 +261,33 @@ district_essential_2wk <- ODKtoDB_district_essential_clean |>
 district_essential <- bind_rows(district_essential_3m|> mutate(across(everything(), as.character)),
                                 district_essential_2m |> mutate(across(everything(), as.character)),
                                 district_essential_1m|> mutate(across(everything(), as.character)),
-                                district_essential_2wk|> mutate(across(everything(), as.character)))
+                                district_essential_2wk|> mutate(across(everything(), as.character))) |>
+  select(-region)
 
-### Clean district data #####
-
+## Clean district data #####
+#
 # district_data_clean <-  district_essential |>
-#   district_data_cleaner(district = "Kampala")
-
-### district detail. ##########
+#   district_data_cleaner(district_selected_pra = "All Districts")
+#
+# district_data_clean <-  district_essential |>
+#   district_data_cleaner(district_selected_pra = "Mukono")
+#
+# ### district detail. ##########
 # district_detail <- district_data_clean |>
 #   tidyr::pivot_wider(names_from = time_of_assessment, values_from = status) |>
 #   left_join(y = district_placeholder |> mutate(across(`3m`: `1wk`, ~ "Zero"))) |>
-#   select(c(pillar, label,`3m`, `2m`, `1m`, `2wk`, `1wk`)) |>
-#   rename("Pillar" = pillar,
+#   select(c(district, pillar, label,`3m`, `2m`, `1m`, `2wk`, `1wk`)) |>
+#   rename("Pillar" = pillar, "District" = district,
 #          "Critical activities (desired timeframe for completion shaded light yellow)" = label) |>
 #   #mutate(across(`12-10m`: `1wk`, str_to_title)) |>
 #   filter(Pillar != "others")
-
-
-
-####
-
-
-
+#
+#
+#
+# ####
+#
+#
+#
 # ### district Summary #######
 #
 # district_summary <- switch(
@@ -280,7 +320,7 @@ district_essential <- bind_rows(district_essential_3m|> mutate(across(everything
 #              .keep = "unused") |>
 #       district_summary_last_part()},
 #   "1wk"      = {
-#     district_summary_fn(district_data_clean = district_data_clean, assessment_period = "3m") |>
+#     district_summary_fn(district_data_clean = district_data_clean, assessment_period = "1wk") |>
 #       mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
 #              `2m` = round((`2m` /`2m_den`)*100, 1),
 #              `1m` = round((`1m` /`1m_den`)*100, 1),
@@ -289,12 +329,19 @@ district_essential <- bind_rows(district_essential_3m|> mutate(across(everything
 #              .keep = "unused") |>
 #       district_summary_last_part()}
 # )
-
-
+#
+#
 # district_summary_score <- district_summary |>
 #   summarise(pillar = "Score",
 #             across(where(is.numeric),\(x) mean(x, na.rm = TRUE)))
-
-
+#
+#
+# ####
+#
+# district_summary_score[,c("district",assessment_period_district)] |>
+#   mutate(ready = case_when(`3m` < 80 ~ FALSE,
+#                            `3m` >= 80 ~ TRUE,
+#                            .default = FALSE
+#                             )) |> pull(ready) |> sum()
 
 

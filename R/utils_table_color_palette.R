@@ -138,6 +138,5 @@ pillar_style <- reactable::colDef(maxWidth = 150,
 
 pillar_style_district <- reactable::colDef(maxWidth = 150,
                                   align = "left",
-                                  footer = "Score %",
                                   filterInput = filter_district_detail
 )

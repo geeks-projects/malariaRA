@@ -323,7 +323,7 @@ national_summary <- switch(
              .keep = "unused") |>
       national_summary_last_part()},
   "3m"      = {
-    national_summary_fn(assessment_period = "6-4m") |>
+    national_summary_fn(assessment_period = "3m") |>
       mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
              `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
              `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
@@ -331,7 +331,7 @@ national_summary <- switch(
              .keep = "unused") |>
       national_summary_last_part()},
   "2m"      = {
-    national_summary_fn(assessment_period = "6-4m") |>
+    national_summary_fn(assessment_period = "2m") |>
       mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
              `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
              `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
@@ -340,7 +340,7 @@ national_summary <- switch(
              .keep = "unused") |>
       national_summary_last_part()},
   "1m"      = {
-    national_summary_fn(assessment_period = "6-4m") |>
+    national_summary_fn(assessment_period = "1m") |>
       mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
              `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
              `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
@@ -350,7 +350,7 @@ national_summary <- switch(
              .keep = "unused") |>
       national_summary_last_part()},
   "2wk"      = {
-    national_summary_fn(assessment_period = "6-4m") |>
+    national_summary_fn(assessment_period = "2wk") |>
       mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
              `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
              `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
@@ -361,7 +361,7 @@ national_summary <- switch(
              .keep = "unused") |>
       national_summary_last_part()},
   "1wk"      = {
-    national_summary_fn(assessment_period = "6-4m") |>
+    national_summary_fn(assessment_period = "1wk") |>
       mutate(`12-10m` = round((`12-10m` /`12-10m_den`)*100, 1),
              `9-7m` = round((`9-7m` /`9-7m_den`)*100, 1),
              `6-4m` = round((`6-4m` /`6-4m_den`)*100, 1),
