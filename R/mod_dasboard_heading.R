@@ -13,7 +13,7 @@ mod_dashboard_heading_ui <- function(id){
   tagList(
 
     div(class = "mainHeader",
-        img(class = "title-left-img", src = "www/chase-malaria-logo.jpeg",  height = 40, width = 80, alt="Uganda coat of arms", role="img"),
+        img(class = "title-left-img", src = "www/Chase-Malaria-Zero-logo.png",  height = 40, width = 80, alt="Uganda coat of arms", role="img"),
         div(class = "title-text-div",
             h6(class= "title-text", "Uganda Malaria Readiness Assessment Dashboard")),
           #  h5(class= "title-text", "Dashboard")),

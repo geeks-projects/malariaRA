@@ -68,6 +68,11 @@ mod_national_tab_ui <- function(id){
       #   ),
       #   reactableOutput(ns("table1"))
       # )
+    ),
+    card(class = "cardrow4",
+         full_screen = FALSE,
+         card_header("Credits"),
+         mod_footer_information_ui("footer_information_2")
     )
   )
 
