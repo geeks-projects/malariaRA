@@ -18,9 +18,13 @@ mod_national_tab_ui <- function(id){
             <div class="poor-status-cricle"></div> <span class = "status" > Below 80%</span>
             <div class="mid-status-cricle"></div> <span class = "status" > 80% - 95%</span>
             <div class="good-status-cricle"></div> <span class = "status" > Above 95%</span>
+
         </div> '
 
        ),
+       div(class = "last_updated_div",
+           glue::glue("Last Updated: {last_updated}")
+       )
     ),
 
     layout_columns(
@@ -28,11 +32,11 @@ mod_national_tab_ui <- function(id){
                       icon = "clipboard-data",  value = glue::glue("{round(national_summary_score[1,assessment_period])}%")),
 
       mod_valuebox_ui(id = "valuebox_2",   title = "Number of targeted districts",
-                      icon = "hospital",  value = "105"),
+                      icon = "hospital",  value = "106"),
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
                       icon = "calendar-event",
-                      value = difftime(ymd('20250425'), today(), units="days",tz = "Africa/Kampala"))),
+                      value = difftime(ymd('20250401'), today(), units="days",tz = "Africa/Kampala"))),
 
     ## Row 2
 
@@ -64,6 +68,11 @@ mod_national_tab_ui <- function(id){
       #   ),
       #   reactableOutput(ns("table1"))
       # )
+    ),
+    card(class = "cardrow4",
+         full_screen = FALSE,
+         card_header("Credits"),
+         mod_footer_information_ui("footer_information_2")
     )
   )
 
@@ -99,6 +108,7 @@ mod_national_tab_server <- function(id){
                                      "mid" = orange_color,
                                      "poor" = red_color))+
         scale_x_discrete(limits=rev)+
+        ylim(c(0, 100)) +
         coord_flip()+
           labs(x = "Pillar",
                y = "Score")

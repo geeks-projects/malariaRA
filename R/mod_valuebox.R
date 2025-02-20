@@ -12,10 +12,9 @@ mod_valuebox_ui <- function(id, title , icon, value ){
   tagList(
 
     value_box(class = "singlevaluebox",
-              title = title, value = value, theme = value_box_theme(
-                bg = "#FFFFFF",
-                fg = "#191919"
-              ), showcase = bsicons::bs_icon(icon),
+              title = title, value = value,
+              theme = value_box_theme(bg = "#FFFFFF", fg = "#191919"),
+              showcase = bsicons::bs_icon(icon),
               showcase_layout = "left center", full_screen = FALSE, fill = TRUE,
               height = NULL
     )

@@ -137,3 +137,12 @@ ul li {
   border-top: 0.2px solid #a0aa674d;
   background-color: #ffffff;
 }
+
+.last_updated_div {
+  color: #ffd485;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
