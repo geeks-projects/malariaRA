@@ -19,6 +19,8 @@ mod_footer_information_ui <- function(id){
         img(class = "logo-img", src = "www/PATH-logo.png", height = 30, width = 100, alt="AFENET logo", role="img"),
         img(class = "logo-img", src = "www/Coat_of_arms_of_Uganda.svg", height = 45, width = 100, alt="ncdc logo", role="img"),
         img(class = "logo-img", src = "www/AFENET-Logo.png", height = 42, width = 100, alt="AFENET logo", role="img"),
+        img(class = "logo-img", src = "www/Malaria_Consortium-logo.svg", height = 42, width = 100, alt="Malaria Consortium logo", role="img"),
+        img(class = "logo-img", src = "www/UNICEF-logo.svg", height = 42, width = 100, alt="UNICEF logo", role="img"),
         img(class = "logo-img", src = "www/CDC-logo.svg", height = 45, width = 100, alt="AFENET logo", role="img")
     )
 

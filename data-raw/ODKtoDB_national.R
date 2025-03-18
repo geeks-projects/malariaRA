@@ -32,6 +32,13 @@ connect_ODK <- function(svc_url_level = c("District", "National")) {
 
 #connect_ODK(svc_url_level = "District")
 
-ODKtoDB_national <- connect_ODK(svc_url_level = "National")[c(1, 3, 4,5), ]
+ODKtoDB_national <- connect_ODK(svc_url_level = "National") |>
+  filter(!(time_of_assessment =="6-4m" & start_date_activity == "2024-12-06 03:00:00"))
+
+# ODKtoDB_national  %>%
+# filter(!(time_of_assessment =="6-4m" & start_date_activity == "2024-12-06 03:00:00")) |>
+#   arrange(time_of_assessment) |>
+#   select(time_of_assessment, 	start_date_activity)
+
 
 usethis::use_data(ODKtoDB_national, overwrite = TRUE)
