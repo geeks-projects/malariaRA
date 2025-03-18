@@ -32,11 +32,11 @@ mod_national_tab_ui <- function(id){
                       icon = "clipboard-data",  value = glue::glue("{round(national_summary_score[1,assessment_period])}%")),
 
       mod_valuebox_ui(id = "valuebox_2",   title = "Number of targeted districts",
-                      icon = "hospital",  value = "106"),
+                      icon = "hospital",  value = "105"),
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
                       icon = "calendar-event",
-                      value = difftime(ymd('20250401'), today(), units="days",tz = "Africa/Kampala"))),
+                      value = difftime(ymd('20250402'), today(), units="days",tz = "Africa/Kampala"))),
 
     ## Row 2
 

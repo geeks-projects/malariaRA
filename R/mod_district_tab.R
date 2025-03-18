@@ -50,7 +50,7 @@ mod_district_tab_ui <- function(id){
 
       mod_valuebox_ui(id = "valuebox_3",  title = "Days left to the introduction",
                       icon = "calendar-event",
-                      value = difftime(ymd('20250401'), today(), units="days",tz = "Africa/Kampala"))),
+                      value = difftime(ymd('20250402'), today(), units="days",tz = "Africa/Kampala"))),
     ## Row select-district
 
      # card(class = "carddistrict",
@@ -69,7 +69,7 @@ mod_district_tab_ui <- function(id){
       full_screen = F,
       card(class = "cardrow2",
            full_screen = TRUE, card_header("Map of Uganda"),
-           plotOutput(ns("plot"))),
+           plotOutput(ns("plot_map"))),
 
       card(class = "cardrow2",
            full_screen = TRUE, card_header("Score for over the timeline"),
@@ -77,7 +77,16 @@ mod_district_tab_ui <- function(id){
       #shiny::icon("circle-info"),
     ),
 
+
     ## Row 3
+
+    card(class = "cardrow3",
+         full_screen = TRUE,
+        card_header(glue::glue("Overall Score (%) for Current timeline :{assessment_period}")),
+              plotOutput(ns("plot_bar")),
+    ),
+
+    ## Row 4
 
     card(class = "cardrow3",
          full_screen = TRUE,
@@ -123,32 +132,19 @@ mod_district_tab_server <- function(id, district){
       })
 
 
-##########
-    district_summary <- reactive({
-
+########## district_summary_bar
+    district_summary_bar <- reactive({
 
       switch( assessment_period_district,
-              "3m"      = {
-                district_summary_fn(district_data_clean = district_data_selected(), assessment_period = "3m") |>
-                  mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
-                         .keep = "unused") |>
-                  district_summary_last_part()},
-
-              "2m"      = {
-                district_summary_fn(district_data_clean = district_data_selected(), assessment_period = "2m") |>
-                  mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
-                         `2m` = round((`2m` /`2m_den`)*100, 1),
-                         .keep = "unused") |>
-                  district_summary_last_part()},
               "1m"      = {
-                district_summary_fn(district_data_clean = district_data_selected(), assessment_period = "1m") |>
+                district_summary_fn(district_selected = district_selected(),map_out = F, district_data_clean = district_data_selected(), assessment_period = "1m") |>
                   mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
                          `2m` = round((`2m` /`2m_den`)*100, 1),
                          `1m` = round((`1m` /`1m_den`)*100, 1),
                          .keep = "unused") |>
                   district_summary_last_part()},
               "2wk"      = {
-                district_summary_fn(district_data_clean = district_data_selected(), assessment_period = "2wk") |>
+                district_summary_fn(district_selected = district_selected(), map_out = F, district_data_clean = district_data_selected(), assessment_period = "2wk") |>
                   mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
                          `2m` = round((`2m` /`2m_den`)*100, 1),
                          `1m` = round((`1m` /`1m_den`)*100, 1),
@@ -156,7 +152,7 @@ mod_district_tab_server <- function(id, district){
                          .keep = "unused") |>
                   district_summary_last_part()},
               "1wk"      = {
-                district_summary_fn(district_data_clean = district_data_selected(), assessment_period = "1wk") |>
+                district_summary_fn(district_selected = district_selected(), map_out = F, district_data_clean = district_data_selected(), assessment_period = "1wk") |>
                   mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
                          `2m` = round((`2m` /`2m_den`)*100, 1),
                          `1m` = round((`1m` /`1m_den`)*100, 1),
@@ -164,24 +160,65 @@ mod_district_tab_server <- function(id, district){
                          `1wk` = round((`1wk` /`1wk_den`)*100, 1),
                          .keep = "unused") |>
                   district_summary_last_part()}
-      )
+      )|>  mutate("3m" = NA, "2m" = NA)
     })
 
-#################
-    district_summary_score <- reactive({
 
-      district_summary() |>
-        summarise(pillar = "Score",
-                  across(where(is.numeric),\(x) mean(x, na.rm = TRUE)))
+
+########## district_summary_map
+    district_summary_map <- reactive({
+
+      switch( assessment_period_district,
+              "1m"      = {
+                district_summary_fn(district_selected = district_selected(), map_out = T, district_data_clean = district_data_selected(), assessment_period = "1m") |>
+                  mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
+                         `2m` = round((`2m` /`2m_den`)*100, 1),
+                         `1m` = round((`1m` /`1m_den`)*100, 1),
+                         .keep = "unused") |>
+                  district_summary_last_part()},
+              "2wk"      = {
+                district_summary_fn(district_selected = district_selected(), map_out = T, district_data_clean = district_data_selected(), assessment_period = "2wk") |>
+                  mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
+                         `2m` = round((`2m` /`2m_den`)*100, 1),
+                         `1m` = round((`1m` /`1m_den`)*100, 1),
+                         `2wk` = round((`2wk` /`2wk_den`)*100, 1),
+                         .keep = "unused") |>
+                  district_summary_last_part()},
+              "1wk"      = {
+                district_summary_fn(district_selected = district_selected(), map_out = T, district_data_clean = district_data_selected(), assessment_period = "1wk") |>
+                  mutate(`3m` = round((`3m` /`3m_den`)*100, 1),
+                         `2m` = round((`2m` /`2m_den`)*100, 1),
+                         `1m` = round((`1m` /`1m_den`)*100, 1),
+                         `2wk` = round((`2wk` /`2wk_den`)*100, 1),
+                         `1wk` = round((`1wk` /`1wk_den`)*100, 1),
+                         .keep = "unused") |>
+                  district_summary_last_part()}
+      )|>  mutate("3m" = NA, "2m" = NA)
     })
+
+################# district_summary_score bar
+district_summary_score_bar <- reactive({
+
+  district_summary_bar() |>
+    summarise(pillar = "Score",
+              across(where(is.numeric),\(x) mean(x, na.rm = TRUE)))
+})
+
+################# district_summary_score map
+district_summary_score_map <- reactive({
+
+  district_summary_map() |>
+    summarise(pillar = "Score",
+              across(where(is.numeric),\(x) mean(x, na.rm = TRUE)))
+})
 
 ################
 
     ugandan_map_selected <- reactive({
 
 
-      ugandan_map |> left_join(district_summary_score()[,c("district",assessment_period_district)] |>
-                                                       mutate(assessment_period_district = district_summary_score()[[assessment_period_district]] ),
+      ugandan_map |> left_join(district_summary_score_map()[,c("district",assessment_period_district)] |>
+                                                       mutate(assessment_period_district = district_summary_score_map()[[assessment_period_district]] ),
                                                      by = c("District" = "district")) |>
       mutate(overall = case_when(assessment_period_district < 80 ~ "Below",
                                  assessment_period_district <= 100 ~ "Above",
@@ -191,9 +228,9 @@ mod_district_tab_server <- function(id, district){
 
     output$districts_ready <- renderText({
 
-      district_summary_score()[,c("district",assessment_period_district)] |>
-        mutate(ready = case_when(`3m` < 80 ~ FALSE,
-                                 `3m` >= 80 ~ TRUE,
+      district_summary_score_map()[,c("district",assessment_period_district)] |>
+        mutate(ready = case_when(`1m` < 80 ~ FALSE,
+                                 `1m` >= 80 ~ TRUE,
                                  .default = FALSE
         )) |> pull(ready) |> sum()
 
@@ -201,7 +238,7 @@ mod_district_tab_server <- function(id, district){
 
 
 #############
-    output$plot <- renderPlot({
+    output$plot_map <- renderPlot({
 #
 #       if(district_selected() == "All Districts"){
 #
@@ -232,7 +269,10 @@ mod_district_tab_server <- function(id, district){
     ################
     output$district_preparedness_value <- renderText({
 
-      glue::glue("{round(district_summary_score()[1,assessment_period_district])}%")
+      district_summary_score_2 <-  district_summary_score_map() |> summarise(pillar = "Score",
+                                          across(where(is.numeric),\(x) mean(x, na.rm = TRUE)))
+
+      glue::glue("{round(district_summary_score_2[1,assessment_period_district])}%")
 
     })
 
@@ -244,7 +284,7 @@ mod_district_tab_server <- function(id, district){
       ### district Summary ######
 
 ####################
-      district_summary() |>
+      district_summary_bar() |>
         reactable::reactable(
           pagination = FALSE,
           bordered = T,
@@ -261,6 +301,37 @@ mod_district_tab_server <- function(id, district){
         )
     })
 
+
+
+    output$plot_bar <- renderPlot({
+
+      district_summary_df <- district_summary_bar()|> ungroup() |>
+        select(pillar, {{assessment_period}})
+
+      colnames(district_summary_df) <- c("pillar", "score")
+
+
+      plot_data <- district_summary_df |>
+        mutate(pillar = str_to_sentence(pillar)|> str_wrap(width = 15),
+               status = case_when(score >= 95 ~ "good",
+                                  score >= 80 ~ "mid",
+                                  .default = "poor"))
+
+      ggplot(plot_data,aes(x = pillar, y = score, fill = status)) +
+        geom_col(show.legend = F) +
+        geom_label(aes(label = glue::glue("{round(score)}%"), fill = status),
+                   color = "white", show.legend = F, fontface = "bold")+
+        theme_classic() +
+        scale_fill_manual(values = c("good" = green_color,
+                                     "mid" = orange_color,
+                                     "poor" = red_color))+
+      #  scale_x_discrete(limits=rev)+
+        ylim(c(0, 100)) +
+        labs(x = "Pillar",
+             y = "Score")
+
+    })
+
     output$table1 <- renderReactable({
 
 
@@ -271,7 +342,7 @@ mod_district_tab_server <- function(id, district){
         rename("Pillar" = pillar, "District" = district,
                "Critical activities (desired timeframe for completion shaded light yellow)" = label) |>
         #mutate(across(`12-10m`: `1wk`, str_to_title)) |>
-        filter(Pillar != "others")
+        filter(Pillar != "others") |> mutate("3m" = NA, "2m" = NA)
 
 
       district_detail |>

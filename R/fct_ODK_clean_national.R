@@ -146,7 +146,8 @@ data(national_placeholder)
 data(period_selectors)
 data(national_summary_denominator)
 
-assessment_period <- ODKtoDB_national$time_of_assessment[1]
+#assessment_period <- ODKtoDB_national$time_of_assessment[1]
+assessment_period <- "1m"
 
 last_updated <- as.Date(ODKtoDB_national$endtime[1])
 
@@ -294,7 +295,8 @@ national_essential <- bind_rows(national_essential_12_10m |> mutate(across(every
 national_detail <- national_essential |>
   national_data_cleaner() |>
   pivot_wider(names_from = time_of_assessment, values_from = status) |>
-  left_join(y = national_placeholder |> mutate(across(`12-10m`: `1wk`, ~ "Zero"))) |>
+  left_join(y = national_placeholder |> mutate(across(`12-10m`: `1wk`, ~ "Zero"))
+            ) |>
   select(c(pillar, label, `12-10m`,`9-7m`, `6-4m`, `3m`, `2m`, `1m`, `2wk`, `1wk`)) |>
   rename("Pillar" = pillar,
          "Critical activities (desired timeframe for completion shaded light yellow)" = label) |>
